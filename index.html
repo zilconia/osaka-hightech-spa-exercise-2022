@@ -16,26 +16,9 @@
 
 <body>
   <div id="app">
-    <span>
-      <input type="checkbox" id="e1"><label for="e1">北海道</label>
-    </span>
-    <span>
-      <input type="checkbox" id="e2"><label for="e2">青森県</label>
-    </span>
-    <span>
-      <input type="checkbox" id="e3"><label for="e3">岩手県</label>
-    </span>
-    <span>
-      <input type="checkbox" id="e4"><label for="e4">宮城県</label>
-    </span>
-    <span>
-      <input type="checkbox" id="e5"><label for="e5">秋田県</label>
-    </span>
-    <span>
-      <input type="checkbox" id="e6"><label for="e6">山形県</label>
-    </span>
-    <span>
-      <input type="checkbox" id="e7"><label for="e7">福島県</label>
+    <span v-for="(estate, index) in estates">
+      <input type="checkbox" v-bind:id="'e' + index">
+      <label v-bind:for="'e' + index">{{ estate }}</label>
     </span>
   </div>
 </body>
