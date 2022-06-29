@@ -17,19 +17,10 @@
 <body>
   <div id="app">
     <h2>都道府県</h2>
-    <span v-for="(prefecture, index) in prefectures">
-      <input type="checkbox" v-bind:id="'e' + index">
-      <label v-bind:for="'e' + index">{{ prefecture }}</label>
-    </span>
+    <prefecture-checkbox></prefecture-checkbox>
 
     <h2>人口グラフ</h2>
-    <div class="container">
-      <div
-        v-for="population in populations"
-        class="item"
-        v-bind:style="'height: ' + population + 'px;'"
-      ></div>
-    </div>
+    <population-bar-plot></population-bar-plot>
   </div>
 </body>
 

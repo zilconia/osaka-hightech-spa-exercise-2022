@@ -1,4 +1,4 @@
-const RootComponent = {
+const PrefectureCheckbox = {
   data() {
     return {
       prefectures: [
@@ -50,8 +50,39 @@ const RootComponent = {
         '鹿児島県',
         '沖縄県',
       ],
+    };
+  },
+  /* html */
+  template: `
+  <span v-for="(prefecture, index) in prefectures">
+    <input type="checkbox" v-bind:id="'e' + index">
+    <label v-bind:for="'e' + index">{{ prefecture }}</label>
+  </span>
+  `,
+};
+
+const PopulationBarPlot = {
+  data() {
+    return {
       populations: [ 100, 90, 80, 70, 60, 50, 40, 30, 20, 10 ],
     };
+  },
+  /* html */
+  template: `
+  <div class="container">
+    <div
+      v-for="population in populations"
+      class="item"
+      v-bind:style="'height: ' + population + 'px;'"
+    ></div>
+  </div>
+  `,
+};
+
+const RootComponent = {
+  components: {
+    PrefectureCheckbox,
+    PopulationBarPlot,
   },
 };
 
