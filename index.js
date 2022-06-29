@@ -1,7 +1,7 @@
 const RootComponent = {
   data() {
     return {
-      estates: [
+      prefectures: [
         '北海道',
         '青森県',
         '岩手県',
@@ -50,6 +50,7 @@ const RootComponent = {
         '鹿児島県',
         '沖縄県',
       ],
+      populations: [ 100, 90, 80, 70, 60, 50, 40, 30, 20, 10 ],
     };
   },
 };
