@@ -66,11 +66,13 @@ const PopulationBarPlot = {
   data() {
     return {
       populations: [ 100, 90, 80, 70, 60, 50, 40, 30, 20, 10 ],
+      result: '',
     };
   },
   /* html */
   template: `
-  <div>{{ api }}</div>
+  <div>{{ result }}</div>
+  <button v-on:click="updateGraph">更新</button>
   <div class="container">
     <div
       v-for="population in populations"
@@ -79,6 +81,11 @@ const PopulationBarPlot = {
     ></div>
   </div>
   `,
+  methods: {
+    async updateGraph() {
+      this.result = await getPopulations(this.api, 27);
+    },
+  },
 };
 
 const RootComponent = {
