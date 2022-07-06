@@ -80,6 +80,11 @@ const PopulationBarPlot = {
 };
 
 const RootComponent = {
+  data() {
+    return {
+      'api': '',
+    };
+  },
   components: {
     PrefectureCheckbox,
     PopulationBarPlot,
