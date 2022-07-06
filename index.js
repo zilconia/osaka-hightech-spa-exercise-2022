@@ -83,7 +83,18 @@ const PopulationBarPlot = {
   `,
   methods: {
     async updateGraph() {
-      this.result = await getPopulations(this.api, 27);
+      let xs = await getPopulations(this.api, 27);
+
+      // JSON から、'result' -> 'data' -> 0 番目 -> 'data'，と辿った箇所を xs に代入
+      xs = xs['result']['data'][0]['data'];
+
+      // xs を for 文で回し、中身の value をそれぞれ表示する
+      for (const x of xs) {
+        console.log(x.value);
+      }
+
+      // TODO: ↑の for 文で、数値の配列をうまく作り、this.result に代入する
+      this.result = xs;
     },
   },
 };
