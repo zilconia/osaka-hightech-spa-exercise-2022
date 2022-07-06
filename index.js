@@ -65,13 +65,11 @@ const PopulationBarPlot = {
   props: [ 'api' ],
   data() {
     return {
-      populations: [ 100, 90, 80, 70, 60, 50, 40, 30, 20, 10 ],
-      result: '',
+      populations: [],
     };
   },
   /* html */
   template: `
-  <div>{{ result }}</div>
   <button v-on:click="updateGraph">更新</button>
   <div class="container">
     <div
@@ -88,13 +86,13 @@ const PopulationBarPlot = {
       // JSON から、'result' -> 'data' -> 0 番目 -> 'data'，と辿った箇所を xs に代入
       xs = xs['result']['data'][0]['data'];
 
-      // xs を for 文で回し、中身の value をそれぞれ表示する
+      let ys = []
+
       for (const x of xs) {
-        console.log(x.value);
+        ys.push(x.value)
       }
 
-      // TODO: ↑の for 文で、数値の配列をうまく作り、this.result に代入する
-      this.result = xs;
+      this.populations = ys;
     },
   },
 };
