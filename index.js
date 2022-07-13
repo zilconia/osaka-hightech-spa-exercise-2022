@@ -59,10 +59,22 @@ const PrefectureCheckbox = {
   template: `
   <span v-for="(prefecture, index) in prefectures">
     <!-- 3) チェックボックスの変化を監視して、県番号変更用の関数を呼び出す -->
-    <input type="checkbox" v-bind:id="'e' + index" v-on:change="setPrefecture(index + 1)">
+    <input type="checkbox" v-bind:id="'e' + index" v-on:change="onChange($event, index)">
     <label v-bind:for="'e' + index">{{ prefecture }}</label>
   </span>
   `,
+  methods: {
+    onChange(event, index) {
+      // Event の中身を確認し、変化のあったチェックボックスの状態を調べる
+      if (event.target.checked) {
+        // チェックボックスがチェックされているのであれば、県番号を変更すべき
+        this.setPrefecture(index + 1);
+      } else {
+        // チェックボックスがチェックされていないのであれば、県番号を空にすべき
+        this.setPrefecture(null);
+      } 
+    }
+  },
 };
 
 const PopulationBarPlot = {
@@ -88,15 +100,21 @@ const PopulationBarPlot = {
   `,
   methods: {
     async updateGraph() {
-      // 2) 外部から受け取った県番号も考慮して、RESAS API を用いる
-      const xs = await getPopulations(this.api, this.prefecture);
+      // 県番号が空でないかを調べる
+      if (this.prefecture !== null) {
+        // 2) 外部から受け取った県番号も考慮して、RESAS API を用いる
+        const xs = await getPopulations(this.api, this.prefecture);
 
-      // 加工用の関数
-      function f(obj) {
-        return obj.value / 50000;
+        // 加工用の関数
+        function f(obj) {
+          return obj.value / 50000;
+        }
+
+        this.populations = xs.map(f);
+      } else {
+        // 県番号が空の場合は、State を空配列にすることでグラフを消す
+        this.populations = [];
       }
-
-      this.populations = xs.map(f);
     },
   },
 };
@@ -105,7 +123,7 @@ const RootComponent = {
   data() {
     return {
       'api': '',
-      'prefecture': 27, // 1) 県番号用の State を用意
+      'prefecture': null, // 1) 県番号用の State を用意
     };
   },
   methods: {
