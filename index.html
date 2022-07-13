@@ -20,11 +20,16 @@
     <input type="text" v-model="api">
 
     <h2>都道府県</h2>
-    <prefecture-checkbox></prefecture-checkbox>
+    <!-- 3) 県番号変更用の関数を Props を経由して渡す -->
+    <prefecture-checkbox
+      v-bind:set-prefecture="setPrefecture"
+    ></prefecture-checkbox>
 
     <h2>人口グラフ</h2>
+    <!-- 2) 県番号を Props を経由して渡す -->
     <population-bar-plot
       v-bind:api="api"
+      v-bind:prefecture="prefecture"
     ></population-bar-plot>
   </div>
 </body>

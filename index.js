@@ -1,4 +1,7 @@
 const PrefectureCheckbox = {
+  props: [
+    'setPrefecture', // 3) 外部から県番号変更用の関数を受け取れるようにする
+  ],
   data() {
     return {
       prefectures: [
@@ -55,14 +58,18 @@ const PrefectureCheckbox = {
   /* html */
   template: `
   <span v-for="(prefecture, index) in prefectures">
-    <input type="checkbox" v-bind:id="'e' + index">
+    <!-- 3) チェックボックスの変化を監視して、県番号変更用の関数を呼び出す -->
+    <input type="checkbox" v-bind:id="'e' + index" v-on:change="setPrefecture(index + 1)">
     <label v-bind:for="'e' + index">{{ prefecture }}</label>
   </span>
   `,
 };
 
 const PopulationBarPlot = {
-  props: [ 'api' ],
+  props: [
+    'api',
+    'prefecture', // 2) 外部から県番号を受け取れるようにする
+  ],
   data() {
     return {
       populations: [],
@@ -81,7 +88,8 @@ const PopulationBarPlot = {
   `,
   methods: {
     async updateGraph() {
-      const xs = await getPopulations(this.api, 27);
+      // 2) 外部から受け取った県番号も考慮して、RESAS API を用いる
+      const xs = await getPopulations(this.api, this.prefecture);
 
       // 加工用の関数
       function f(obj) {
@@ -97,7 +105,14 @@ const RootComponent = {
   data() {
     return {
       'api': '',
+      'prefecture': 27, // 1) 県番号用の State を用意
     };
+  },
+  methods: {
+    // 1) 県番号を変更するためのメソッドを用意
+    setPrefecture(n) {
+      this.prefecture = n;
+    },
   },
   components: {
     PrefectureCheckbox,
