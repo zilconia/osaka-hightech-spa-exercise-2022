@@ -27,5 +27,6 @@ async function getPopulations(apiKey, prefId) {
   // await というキーワードで待つことができる
   const json = await response.json();
 
-  return json;
+  // JSON から、'result' -> 'data' -> 0 番目 -> 'data'，と辿った箇所を xs に代入
+  return json['result']['data'][0]['data'];
 }

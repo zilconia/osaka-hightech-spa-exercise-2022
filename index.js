@@ -81,18 +81,14 @@ const PopulationBarPlot = {
   `,
   methods: {
     async updateGraph() {
-      let xs = await getPopulations(this.api, 27);
+      const xs = await getPopulations(this.api, 27);
 
-      // JSON から、'result' -> 'data' -> 0 番目 -> 'data'，と辿った箇所を xs に代入
-      xs = xs['result']['data'][0]['data'];
-
-      let ys = []
-
-      for (const x of xs) {
-        ys.push(x.value)
+      // 加工用の関数
+      function f(obj) {
+        return obj.value / 50000;
       }
 
-      this.populations = ys;
+      this.populations = xs.map(f);
     },
   },
 };
