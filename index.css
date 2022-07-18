@@ -1,9 +1,19 @@
-.container {
+.api-input {
+  width: 300px;
+}
+
+.prefecture {
+  user-select: none;
+}
+
+.graph {
   display: flex;
   align-items: flex-end;
 }
 
-.item {
-  background-color: red;
+.bar {
+  background-color: #00BBDD;;
   width: 20px;
+  margin: 3px;
+  border-radius: 3px 3px 0 0;
 }

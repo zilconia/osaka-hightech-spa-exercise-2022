@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>株式会社ゆめみのコーディングテスト</title>
+  <title>グラフアプリ (都道府県別の人口)</title>
 
   <!-- Vue.js の読み込み -->
   <script src="https://unpkg.com/vue@next"></script>
@@ -16,17 +16,15 @@
 
 <body>
   <div id="app">
-    <h2>API キー</h2>
-    <input type="text" v-model="api">
+    <h2>API キー (RESAS API)</h2>
+    <input class="api-input" type="password" v-model="api">
 
     <h2>都道府県</h2>
-    <!-- 3) 県番号変更用の関数を Props を経由して渡す -->
-    <prefecture-checkbox
+    <prefecture-selector
       v-bind:set-prefecture="setPrefecture"
-    ></prefecture-checkbox>
+    ></prefecture-selector>
 
     <h2>人口グラフ</h2>
-    <!-- 2) 県番号を Props を経由して渡す -->
     <population-bar-plot
       v-bind:api="api"
       v-bind:prefecture="prefecture"
@@ -36,6 +34,8 @@
 
 <!-- 独自 JavaScript の読み込み -->
 <script src="api.js"></script>
+<script src="prefecture-selector.js"></script>
+<script src="population-bar-plot.js"></script>
 <script src="index.js"></script>
 
 </html>
