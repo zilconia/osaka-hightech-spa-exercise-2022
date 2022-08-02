@@ -1,7 +1,7 @@
 const RootComponent = {
   data() {
     return {
-      'api': '',          // API キー (State)
+      'api': 'WCAkhPC5NriK4DIOoMA8NspumXEzT18VPejRnsP7',          // API キー (State)
       'prefecture': null, // 県番号 (State)
     };
   },
