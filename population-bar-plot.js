@@ -6,6 +6,7 @@ const PopulationBarPlot = {
 
   data() {
     return {
+      year:[], // 年度の配列
       populations: [],  // 人口の配列 (State)
       maxPopulation: 1, // 人口の最大値 (State)
     };
@@ -14,12 +15,12 @@ const PopulationBarPlot = {
   /* html */
   template: `
   <button v-on:click="updateGraph">更新</button>
-  <div class="graph">
+  <div class="graph">表示
     <div
       v-for="population in populations"
       class="bar"
       v-bind:style="'height: ' + population * 200 / maxPopulation + 'px;'"
-    ></div>
+    >aaa</div>
   </div>
   `,
 
@@ -28,11 +29,13 @@ const PopulationBarPlot = {
     async updateGraph() {
       if (this.prefecture !== null) {
         const data = await getPopulations(this.api, this.prefecture);
-
+        
+        this.year=data.map((obj)=>obj.year);
         this.populations = data.map((obj) => obj.value);
         this.maxPopulation = Math.max(... data.map((obj) => obj.value));
       } else {
         this.populations = [];
+        this.year=[];
       }
     },
   },
