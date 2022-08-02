@@ -24,8 +24,9 @@ const PrefectureSelector = {
   template: `
   <span v-for="(prefecture, index) in prefectures">
     <input 
-      type="checkbox"
+      type="radio"
       v-bind:id="'e' + index"
+      v-bind:name="'県名選択'"
       v-on:change="onChange($event, index)"
     >
     <label v-bind:for="'e' + index" class="prefecture">{{ prefecture }}</label>
